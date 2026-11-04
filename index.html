@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1b1b22">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Karate">
+<title>Rutina de karate</title>
+<style>
+:root{--bg:#f3eee4;--card:#fffdf8;--ink:#17171a;--mute:#6a6559;--line:#e2dbcc;--red:#c8102e;--red2:#e5384f;--ok:#1f7a4d;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e0e12;--card:#17171d;--ink:#f1eee8;--mute:#a49d8f;--line:#2a2a33;--red:#ef4b60;--red2:#ff6a7c;--ok:#4cc38a}}
+:root[data-theme="dark"]{--bg:#0e0e12;--card:#17171d;--ink:#f1eee8;--mute:#a49d8f;--line:#2a2a33;--red:#ef4b60;--red2:#ff6a7c;--ok:#4cc38a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-tap-highlight-color:transparent}
+main{max-width:640px;margin:0 auto;padding:14px 14px 40px}
+.hero{position:relative;overflow:hidden;border-radius:20px;padding:18px;color:#f5f1ea;background:radial-gradient(circle at 85% 0%,rgba(229,56,79,.45),transparent 55%),linear-gradient(135deg,#1b1b22,#33101a);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.kanji{position:absolute;right:-8px;bottom:-34px;font-size:7.5rem;font-weight:800;opacity:.08;letter-spacing:-6px;pointer-events:none;user-select:none}
+.hero-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.eyebrow{margin:0;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#e9a3ad}
+h1{margin:2px 0 0;font-size:1.65rem;line-height:1.1}
+.ring{width:84px;height:84px;flex:none;position:relative}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:8;stroke-linecap:round}
+.ring .bg{stroke:rgba(255,255,255,.15)}
+.ring .fg{stroke:#ff5a6e;stroke-dasharray:226;stroke-dashoffset:226;transition:stroke-dashoffset .6s ease}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:1.15rem}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;position:relative}
+.chip{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);border-radius:999px;padding:3px 10px;font-size:.8rem}
+.chip.red{background:#c8102e;border-color:#c8102e}
+.tests{margin:10px 0 0;font-size:.82rem;color:#f0cfd4;position:relative}
+.tabs{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:14px 0}
+.tabs button{position:relative;padding:10px 0 13px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;font:inherit;font-weight:600;cursor:pointer}
+.tabs button.on{background:var(--red);border-color:var(--red);color:#fff}
+.tabs button.today:not(.on){border-color:var(--red);color:var(--red)}
+.tabs button i{position:absolute;left:50%;bottom:5px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--ok)}
+.dayhead{display:flex;justify-content:space-between;align-items:baseline;margin:6px 2px 10px}
+.dayhead h2{margin:0;font-size:1.25rem}
+.dayhead span{color:var(--mute);font-size:.88rem}
+.banner{margin:0 0 12px;padding:12px 14px;border-radius:14px;background:linear-gradient(135deg,var(--red),#7a0a1c);color:#fff;font-weight:700;animation:pop .5s}
+.block{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--red);border-radius:14px;margin-bottom:12px;padding:12px 12px 6px}
+.block h3{font-size:.95rem;margin:0 0 6px;color:var(--red)}
+.item{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;padding:10px 0;border-top:1px solid var(--line)}
+.item:first-of-type{border-top:0}
+.item input[type=checkbox]{appearance:none;-webkit-appearance:none;width:26px;height:26px;margin:2px 0 0;border:2px solid var(--line);border-radius:8px;background:var(--bg);cursor:pointer;transition:.2s}
+.item input[type=checkbox]:checked{background:var(--red) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E") center/72% no-repeat;border-color:var(--red);animation:pop .3s}
+.n{font-weight:600}
+.sets{display:inline-block;margin-left:6px;padding:1px 9px;border-radius:999px;background:var(--red);color:#fff;font-size:.8rem;font-weight:700}
+.item .d{color:var(--mute);font-size:.86rem}
+.item input[type=text]{grid-column:2;margin-top:4px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:7px 10px;font:inherit;font-size:.88rem}
+.item.done .n{text-decoration:line-through;color:var(--mute)}
+@keyframes pop{0%{transform:scale(.85)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
+details{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+summary{cursor:pointer;font-weight:700}
+.chart{display:flex;align-items:flex-end;gap:8px;height:120px;margin:14px 0 6px}
+.chart div{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px;font-size:.75rem;color:var(--mute)}
+.chart i{display:block;width:100%;min-height:4px;border-radius:6px 6px 2px 2px;background:linear-gradient(var(--red2),var(--red))}
+.chart b{font-size:.78rem;color:var(--ink)}
+.hist div{padding:5px 0;border-top:1px solid var(--line);font-size:.92rem}
+label{font-size:.9rem}
+input[type=date]{font:inherit;padding:6px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px}
+h1,.dayhead h2{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif",Georgia,serif}
+.hero::before{content:"";position:absolute;inset:0;opacity:.07;background:radial-gradient(circle at 50% 100%,transparent 36%,#fff 37%,#fff 40%,transparent 41%) 0 0/36px 18px;pointer-events:none}
+.next{position:relative;margin:12px 0 0;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.09);font-size:.88rem}
+.next:empty{display:none}
+.cf{position:fixed;top:-14px;width:8px;height:14px;z-index:99;pointer-events:none;animation:fall 1.6s ease-in forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(540deg);opacity:.8}}
+</style>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <div class="kanji" aria-hidden="true">空手</div>
+    <div class="hero-top">
+      <div><p class="eyebrow">Camino al Panamericano</p><h1>Rutina de karate</h1></div>
+      <div class="ring"><svg viewBox="0 0 84 84"><circle class="bg" cx="42" cy="42" r="36"/><circle class="fg" id="prog" cx="42" cy="42" r="36"/></svg><b id="pct">0%</b></div>
+    </div>
+    <div class="chips" id="chips"></div>
+    <p class="tests" id="tests"></p>
+    <p class="next" id="next"></p>
+  </header>
+  <div class="tabs" id="tabs"></div>
+  <div id="day"></div>
+  <details><summary>Progreso e historial</summary>
+    <div class="chart" id="chart"></div>
+    <div class="hist" id="hist"></div>
+  </details>
+  <details><summary>Ajustes</summary>
+    <p><label>Inicio de la semana 1: <input type="date" id="start"></label></p>
+  </details>
+</main>
+<script>
+/* ========= 1) DATOS: aquí vive tu rutina. Para editarla, cambia estas líneas. =========
+   S(nombre, series, reps) = ejercicio con series (en semana de descarga 3 pasa a 2)
+   N(nombre, detalle)      = ejercicio sin series (tiempo, lista de pasos, etc.) */
+const S=(n,s,r)=>({n,s,r}), N=(n,d='')=>({n,d});
+const CALENT=N('Calentamiento (10 min)','Trotar 5 vueltas · círculos de brazos 10+10 · rotación de cadera 10 por lado · zenkutsu-dachi dinámico 6 por pierna · balanceos 10+10 por pierna · banda: caminata lateral 2×10 y diagonal 2×10');
+const RESP=N('Respiración o meditación (5 a 10 min)','Inhalar 4, exhalar 6. Meditación larga: asentarse 1 min, respiración 3, barrido del cuerpo 2, visualización 3, palabra clave 1');
+const DAYS=[
+ {name:'Domingo',blocks:[
+  {t:'15:00–18:00 Descanso físico',items:[N('Elongación suave','15 min'),N('Animal movement','10 min'),N('Repasar la semana','30 min: completar progreso y anotar qué mejorar')]},
+  {t:'18:00–20:00',items:[N('Estudiar y preparar la semana')]}]},
+ {name:'Lunes',blocks:[
+  {t:'16:30 Antes del dojo (30 min)',items:[
+   N('Entrar en calor (5 min)','Trotar 5 vueltas · círculos de brazos 10+10 · rotación de cadera 10 por lado'),
+   N('Movilidad (6 min)','Sentadillas 10 · zancadas 8 por pierna · balanceos 10+10 por pierna'),
+   N('Banda (5 min)','Caminata lateral y diagonal, 2 series de 10 pasos'),
+   N('Elongación (5 min)','Isquiotibiales, aductores, flexores de cadera: 2 repeticiones por lado de 5 respiraciones lentas'),
+   N('Técnica suave: Jion','Lento, 2 veces con pausa de 2 s'),
+   S('Kizami zuki',3,'10'),S('Gyaku zuki chudan',3,'10'),
+   S('Patada lenta, sostenida 3 s arriba',2,'5 por pierna'),
+   N('Cierre (2 min)','5 respiraciones (4-6), palabra clave, saludo')]},
+  {t:'17:00–20:00',items:[N('Dojo')]},
+  {t:'20:00–21:00',items:[N('Elongación para patadas altas (15 min)','Isquiotibiales sentado, mariposa, apertura lateral, zancada baja, figura 4: 2 repeticiones de 30 s por lado'),N('Lectura')]}]},
+ {name:'Martes',blocks:[
+  {t:'19:00–20:00',items:[N('Análisis de kumite (30 min)','1 competidor, 1 objetivo, 3 combates. Anotar 1 cosa para copiar y 1 para hacer distinto'),N('Repaso mental (5 min)')]},
+  {t:'20:00–21:00',items:[N('Dojo')]}]},
+ {name:'Miércoles',blocks:[
+  {t:'17:00–19:00',items:[N('Dojo')]},
+  {t:'19:00–20:00',items:[N('Elongación','10 min'),
+   N('Animal movement (10 min)','10 círculos de muñeca · gateo de oso 2×(6 adelante y 6 atrás) · caminata de cangrejo 2×6 · mono viajero 2×6 · side kick-through 2×5 por lado'),
+   N('Jion lento (20 min)','3 veces lento con pausa de 2 s y 2 veces a velocidad media')]}]},
+ {name:'Jueves',blocks:[
+  {t:'17:00–18:00 Sesión A (fuerza, sin saltos)',items:[CALENT,
+   S('Sentadilla sin peso, bajando contando 3',3,'10'),
+   S('Zancadas alternadas',3,'8 por pierna'),
+   S('Puente de glúteos, pausa de 1 s arriba',3,'12'),
+   S('Flexiones',3,'8 a 12'),
+   S('Remo invertido bajo mesa firme (o dominadas)',3,'6 a 8'),
+   S('Elevaciones de talón',3,'15'),
+   S('Plancha frontal',3,'30 s'),S('Plancha lateral',3,'20 s por lado'),
+   N('Enfriamiento y elongación','5 min')]},
+  {t:'20:00–21:00',items:[N('Análisis de kata o kumite (30 min) y notas')]}]},
+ {name:'Viernes',blocks:[
+  {t:'16:00–17:00 Sesión B (pliometría y velocidad)',items:[
+   N('Calentamiento y combos con banda','Banda ligera sobre las rodillas: kizami yoko geri y ura mawashi geri lentos, 2×5 por lado; sin banda, 2 veces rápido'),
+   S('Sentadilla con salto (movida aquí desde el jueves)',3,'5, descanso 90 s'),
+   S('Saltos verticales',3,'5, descanso 90 s'),
+   S('Saltos laterales sobre una línea',3,'8'),
+   S('Salto largo con aterrizaje controlado',3,'4'),
+   N('Arranques de 3 a 5 m desde guardia, a tope','6 repeticiones'),
+   S('Kizami con yori-ashi a máxima velocidad hacia un cojín',3,'5, descanso 60 a 90 s'),
+   S('Flexiones rápidas',3,'6'),S('Lanzamientos de pelota',3,'6'),
+   N('Escalera de agilidad (6 a 8 cuadros de ~40 cm)','2 pasadas con un pie por cuadro y 2 entrando y saliendo con los dos pies'),
+   N('Kumite en sombra','6 rondas de 1 min, descanso 30 s'),
+   N('Intervalos de sombra (4 min)','8 rondas de 20 s a tope y 10 s suave'),
+   N('Enfriamiento y elongación','5 min')]},
+  {t:'19:00–20:00',items:[N('Jion a velocidad real (20 a 30 min)','3 veces con kime y kiai. Grabar la última y anotar 1 corrección')]}]},
+ {name:'Sábado',blocks:[
+  {t:'11:00–13:00',items:[N('Dojo')]},
+  {t:'Desde las 15:00',items:[N('Kata técnico (30 min)','Jion corrigiendo lo anotado, 2 movimientos difíciles por separado 10 veces cada uno, una pasada completa'),N('Análisis largo','1 hora')]}]}
+];
+const TESTS='Pruebas de esta semana: salto vertical (cm) · flexiones en 1 min · plancha frontal (s) · arranque de 5 m (s) · altura de patada · Jion grabado (3 cosas por mejorar)';
+
+/* ========= 2) ESTADO: se guarda en localStorage del navegador ========= */
+const KEY='karate_v1';
+let st={}; try{st=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){}
+const iso=d=>d.toLocaleDateString('sv');            // fecha como 2026-11-03
+st.start=st.start||iso(new Date()); st.log=st.log||{};
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
+const today=new Date().getDay();                      // 0 = domingo
+let sel=today;
+
+/* ========= 3) CÁLCULOS: semana, fase, descarga ========= */
+function semana(){
+  const dias=Math.floor((new Date(iso(new Date()))-new Date(st.start))/864e5);
+  const wk=Math.max(1,Math.floor(dias/7)+1);
+  const fase=wk<=4?'Base':wk<=8?'Fuerza y potencia':wk<=12?'Específica':'Afinación (mitad de volumen)';
+  return {wk,fase,descarga:wk%4===0};
+}
+function fechaDe(d){const f=new Date(); f.setDate(f.getDate()+(d-f.getDay())); return iso(f)}
+
+/* ========= 4) PANTALLA ========= */
+function racha(){                                     // días seguidos con algo marcado
+  const hecho=f=>Object.values(st.log[f]||{}).some(x=>x.ok);
+  let n=0,d=new Date(); if(!hecho(iso(d))) d.setDate(d.getDate()-1);
+  while(hecho(iso(d))){n++; d.setDate(d.getDate()-1)}
+  return n;
+}
+function render(){
+  const {wk,fase,descarga}=semana(), r=racha();
+  chips.innerHTML=`<span class="chip">Semana ${wk}</span><span class="chip">${fase}</span>`+(descarga?'<span class="chip red">Descarga: 2 series</span>':'')+`<span class="chip">Racha: ${r} ${r===1?'día':'días'}</span>`;
+  tests.textContent=(wk%4===0)?TESTS:'';
+  tabs.innerHTML=['D','L','M','M','J','V','S'].map((l,i)=>{
+    const hay=Object.values(st.log[fechaDe(i)]||{}).some(x=>x.ok);
+    return `<button class="${i===sel?'on':''} ${i===today?'today':''}" data-d="${i}">${l}${hay?'<i></i>':''}</button>`}).join('');
+  const fecha=fechaDe(sel), reg=st.log[fecha]||{};
+  let total=0,hechos=0,html='',sig=null;
+  const bloques=[...DAYS[sel].blocks,{t:'Todos los días',items:[RESP]}];
+  bloques.forEach((b,bi)=>{ b.items.forEach((it,ii)=>{ total++; if((reg[`${bi}-${ii}`]||{}).ok) hechos++; else if(!sig) sig=it.n; }); });
+  next.textContent=sig?'Siguiente: '+sig:(total?'Todo listo por hoy. Osu!':'');
+  html+=`<div class="dayhead"><h2>${DAYS[sel].name}</h2><span>${fecha}</span></div>`;
+  if(total&&hechos===total) html+='<div class="banner">押忍 ¡Día completado!</div>';
+  bloques.forEach((b,bi)=>{
+    html+=`<div class="block"><h3>${b.t}</h3>`;
+    b.items.forEach((it,ii)=>{
+      const id=`${bi}-${ii}`, r=reg[id]||{};
+      let chip='', extra='';
+      if(it.s){const [rep,...resto]=String(it.r).split(','); chip=`<span class="sets">${descarga&&it.s===3?2:it.s} × ${rep.trim()}</span>`; extra=resto.join(',').trim();}
+      html+=`<div class="item ${r.ok?'done':''}"><input type="checkbox" data-id="${id}" ${r.ok?'checked':''}>
+        <div><span class="n">${it.n}</span>${chip}<div class="d">${[extra,it.d].filter(Boolean).join('. ')}</div></div>
+        <input type="text" data-note="${id}" placeholder="Lo que hice (ej. 3×10, 45 s)" value="${r.note||''}"></div>`;
+    });
+    html+='</div>';
+  });
+  day.innerHTML=html;
+  const p=total?hechos/total:0; prog.style.strokeDashoffset=226*(1-p); pct.textContent=Math.round(p*100)+'%';
+  const dias=[...Array(7)].map((_,k)=>{const d=new Date(); d.setDate(d.getDate()-(6-k)); return {l:'DLMMJVS'[d.getDay()],n:Object.values(st.log[iso(d)]||{}).filter(x=>x.ok).length}});
+  const mx=Math.max(1,...dias.map(x=>x.n));
+  chart.innerHTML=dias.map(x=>`<div><b>${x.n}</b><i style="height:${x.n/mx*75}%"></i><span>${x.l}</span></div>`).join('');
+  const fechas=Object.keys(st.log).sort().reverse().slice(0,14);
+  hist.innerHTML=fechas.map(f=>`<div>${f}: ${Object.values(st.log[f]).filter(x=>x.ok).length} ejercicios hechos</div>`).join('')||'<div>Aún no marcaste nada.</div>';
+  start.value=st.start;
+}
+
+function confeti(){const c=['#c8102e','#ff5a6e','#f5f1ea','#e9a3ad'];for(let i=0;i<36;i++){const e=document.createElement('span');e.className='cf';e.style.left=Math.random()*100+'vw';e.style.background=c[i%4];e.style.animationDelay=Math.random()*.5+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),2400)}}
+/* ========= 5) EVENTOS ========= */
+tabs.onclick=e=>{const b=e.target.closest('button'); if(b){sel=+b.dataset.d;render()}};
+day.onchange=e=>{
+  const id=e.target.dataset.id; if(id===undefined) return;
+  const f=fechaDe(sel); st.log[f]=st.log[f]||{}; st.log[f][id]=st.log[f][id]||{};
+  const ok=e.target.checked; st.log[f][id].ok=ok; save(); render();
+  if(ok){try{navigator.vibrate&&navigator.vibrate(15)}catch(_){} if(document.querySelector('.banner')) confeti();}
+};
+day.oninput=e=>{
+  const id=e.target.dataset.note; if(id===undefined) return;
+  const f=fechaDe(sel); st.log[f]=st.log[f]||{}; st.log[f][id]=st.log[f][id]||{};
+  st.log[f][id].note=e.target.value; save();
+};
+start.onchange=()=>{st.start=start.value||st.start;save();render()};
+if('serviceWorker' in navigator){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}
+render();
+</script>
+</body>
+</html>
